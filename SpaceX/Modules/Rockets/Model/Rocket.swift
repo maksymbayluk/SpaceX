@@ -4,7 +4,6 @@
 //
 //  Created by Максим Байлюк on 22.05.2025.
 //
-import UIKit
 
 struct Rocket: Codable {
     let id: String
@@ -14,12 +13,12 @@ struct Rocket: Codable {
     let height: Dimension
     let diameter: Dimension
     let mass: Mass
-    
+
     struct Dimension: Codable {
         let meters: Double?
     }
-    
+
     struct Mass: Codable {
-        let kg: Int?
+        let kgs: Int?
     }
 }
