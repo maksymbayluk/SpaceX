@@ -7,23 +7,39 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
+    private let viewModel: LoginViewModel
+
+    init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupView()
     }
-    
 
-    /*
-    // MARK: - Navigation
+    private func setupView() {
+        view.backgroundColor = .white
+        let button = UIButton(type: .system)
+        button.setTitle("Sign in with Google", for: .normal)
+        button.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        view.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
     }
-    */
 
+    @objc private func didTapSignIn() {
+        viewModel.signInWithGoogle()
+    }
 }

@@ -2,6 +2,7 @@ disabled_rules:
   - todo
   - force_cast
   - force_unwrapping
+  - nesting
 
 opt_in_rules:
   - closure_spacing
@@ -30,7 +31,7 @@ vertical_whitespace:
   max_empty_lines: 1
 
 opening_brace:
-  allow_multiline_statements: false
+  severity: warning
 
 line_length:
   warning: 120
@@ -39,9 +40,9 @@ line_length:
   ignores_urls: true
 
 identifier_name:
-  allowed_symbols: []
-  validates_start_with_lowercase: true
-  min_length: 3
+  allowed_symbols: "_"  # Add underscore to allowed symbols
+  validates_start_with_lowercase: error
+  min_length: 2
   max_length: 40
   excluded:
     - id
