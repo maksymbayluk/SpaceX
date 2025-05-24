@@ -51,9 +51,9 @@ final class CachedLaunch {
             date_utc: launch.date_utc,
             success: launch.success,
             details: launch.details,
-            patchURL: launch.links?.patch?.small,
-            articleURL: launch.links?.article,
-            wikipediaURL: launch.links?.wikipedia
+            patchURL: launch.links.patch?.small,
+            articleURL: launch.links.article,
+            wikipediaURL: launch.links.wikipedia
         )
     }
 }

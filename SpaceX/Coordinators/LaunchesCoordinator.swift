@@ -11,18 +11,18 @@ import UIKit
 final class LaunchesCoordinator {
     private let navigationController: UINavigationController
     private let rocketID: String
-    private let modelContext: ModelContext
 
     init(
         navigationController: UINavigationController,
-        rocketID: String,
-        modelContext: ModelContext
+        rocketID: String
     ) {
         self.navigationController = navigationController
         self.rocketID = rocketID
-        self.modelContext = modelContext
     }
 
     @MainActor func start() {
+        let launchesView = LaunchesView(rocketID: rocketID)
+        let hostingController = UIHostingController(rootView: launchesView)
+        navigationController.pushViewController(hostingController, animated: true)
     }
 }

@@ -32,8 +32,6 @@ enum AuthError: Error {
     }
 }
 
-// MARK: - AuthService
-
 final class AuthService {
     static let shared = AuthService()
 
@@ -46,12 +44,10 @@ final class AuthService {
         let internetService = InternetService.shared
 
         if !internetService.isConnectedToInternet() {
-            // No internet, but we have a local user session – assume valid
             completion(true, nil)
             return
         }
 
-        // Internet is available, verify the user with Firebase
         user.reload { error in
             if let error = error as NSError? {
                 if

@@ -41,7 +41,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		17933E722DE0C2EB00AC016F /* Exceptions for "SpaceX" folder in "SpaceX" target */ = {
+		17F662172DE21C41007A7D02 /* Exceptions for "SpaceX" folder in "SpaceX" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -54,7 +54,7 @@
 		17411D382DDF90F2001B3772 /* SpaceX */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				17933E722DE0C2EB00AC016F /* Exceptions for "SpaceX" folder in "SpaceX" target */,
+				17F662172DE21C41007A7D02 /* Exceptions for "SpaceX" folder in "SpaceX" target */,
 			);
 			path = SpaceX;
 			sourceTree = "<group>";
@@ -301,6 +301,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -358,6 +360,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;

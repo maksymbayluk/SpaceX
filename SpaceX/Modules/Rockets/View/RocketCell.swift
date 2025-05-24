@@ -50,11 +50,11 @@ final class RocketCell: UITableViewCell {
     func configure(with rocket: Rocket) {
         nameLabel.text = rocket.name
 
-        let firstFlight = "First flight: \(rocket.first_flight)"
-        let successRate = "Success rate: \(rocket.success_rate_pct)%"
-        let height = "Height: \(rocket.height.meters ?? 0)m"
-        let diameter = "Diameter: \(rocket.diameter.meters ?? 0)m"
-        let mass = "Mass: \(rocket.mass.kgs ?? 0)kg"
+        let firstFlight = "First flight: \(String(describing: rocket.first_flight))"
+        let successRate = "Success rate: \(String(describing: rocket.success_rate_pct))%"
+        let height = "Height: \(rocket.height?.meters ?? 0)m"
+        let diameter = "Diameter: \(rocket.diameter?.meters ?? 0)m"
+        let mass = "Mass: \(rocket.mass?.kg ?? 0)kg"
 
         detailsLabel.text = [firstFlight, successRate, height, diameter, mass].joined(separator: "\n")
     }
