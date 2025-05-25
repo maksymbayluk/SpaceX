@@ -7,4 +7,6 @@ DerivedData/
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .netrc
 
+# Allow Preview Content folder and subdirectories
+!Preview Content/
 !Preview Content/**
