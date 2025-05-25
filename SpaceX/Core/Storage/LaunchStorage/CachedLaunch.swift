@@ -20,6 +20,7 @@ final class CachedLaunch {
     var patchURL: String?
     var articleURL: String?
     var wikipediaURL: String?
+    var patchImageData: Data?
 
     init(
         id: String,
@@ -30,7 +31,8 @@ final class CachedLaunch {
         details: String?,
         patchURL: String?,
         articleURL: String?,
-        wikipediaURL: String?
+        wikipediaURL: String?,
+        patchImageData: Data?
     ) {
         self.id = id
         self.rocketID = rocketID
@@ -41,6 +43,7 @@ final class CachedLaunch {
         self.patchURL = patchURL
         self.articleURL = articleURL
         self.wikipediaURL = wikipediaURL
+        self.patchImageData = patchImageData
     }
 
     convenience init(from launch: Launch, rocketID: String) {
@@ -53,7 +56,8 @@ final class CachedLaunch {
             details: launch.details,
             patchURL: launch.links.patch?.small,
             articleURL: launch.links.article,
-            wikipediaURL: launch.links.wikipedia
+            wikipediaURL: launch.links.wikipedia,
+            patchImageData: nil
         )
     }
 }
