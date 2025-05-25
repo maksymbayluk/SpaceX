@@ -6,7 +6,6 @@
 //
 import UIKit
 
-// MARK: - RocketsViewController
 
 final class RocketsViewController: UIViewController {
     private let viewModel: RocketsViewModel
