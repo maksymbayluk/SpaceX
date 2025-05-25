@@ -43,28 +43,27 @@ final class AuthService {
             return
         }
 
-        let internetService = InternetService.shared
+        Task {
+            let hasInternet = await InternetService.shared.checkInternetStatus()
 
-        if !internetService.isConnectedToInternet() {
-            // No internet, but we have a local user session – assume valid
-            completion(true, nil)
-            return
-        }
-
-        // Internet is available, verify the user with Firebase
-        user.reload { error in
-            if let error = error as NSError? {
-                if
-                    error.code == AuthErrorCode.userNotFound.rawValue ||
-                    error.code == AuthErrorCode.userDisabled.rawValue
-                {
-                    try? Auth.auth().signOut()
-                    completion(false, nil)
-                } else {
-                    completion(false, error)
-                }
-            } else {
+            if !hasInternet {
                 completion(true, nil)
+                return
+            }
+
+            user.reload { error in
+                if let error = error as NSError? {
+                    switch error.code {
+                    case AuthErrorCode.userDisabled.rawValue,
+                         AuthErrorCode.userNotFound.rawValue:
+                        try? Auth.auth().signOut()
+                        completion(false, nil)
+                    default:
+                        completion(false, error)
+                    }
+                } else {
+                    completion(true, nil)
+                }
             }
         }
     }

@@ -32,8 +32,11 @@ final class RocketsViewController: UIViewController {
 
     private func setupUI() {
         title = "SpaceX Rockets"
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemGroupedBackground
 
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .systemGroupedBackground
+        tableView.showsVerticalScrollIndicator = false
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
 
@@ -76,19 +79,25 @@ final class RocketsViewController: UIViewController {
 
 extension RocketsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return viewModel.rockets.count
+        viewModel.rockets.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RocketCell", for: indexPath) as! RocketCell
-        let rocket = viewModel.rockets[indexPath.row]
-        cell.configure(with: rocket)
+        let cell = tableView.dequeueReusableCell(withIdentifier: RocketCell.reuseIdentifier, for: indexPath) as! RocketCell
+        cell.configure(with: viewModel.rockets[indexPath.row])
         return cell
+    }
+
+    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
+    }
+
+    func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
+        150
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let rocket = viewModel.rockets[indexPath.row]
-        viewModel.onSelectRocket?(rocket.id)
+        viewModel.onSelectRocket?(viewModel.rockets[indexPath.row].id)
     }
 }

@@ -11,11 +11,12 @@ enum SpaceXEndpoint {
     case launches(rocketID: String, page: Int, limit: Int)
 
     private static let baseURL = URL(string: "https://api.spacexdata.com")!
+    private static let maxLimit = 20
 
     var path: String {
         switch self {
         case .rockets: return "/v4/rockets"
-        case .launches: return "/v5/launches"
+        case .launches: return "/v5/launches/query"
         }
     }
 
@@ -28,20 +29,34 @@ enum SpaceXEndpoint {
 
     var queryItems: [URLQueryItem]? { nil }
 
-    var body: Data? {
+    private var body: Data? {
         switch self {
-        case .rockets:
-            return nil
         case let .launches(rocketID, page, limit):
-            let parameters: [String: Any] = [
-                "query": ["rocket": rocketID],
+            let query: [String: Any] = [
+                "query": [
+                    "rocket": rocketID,
+                ],
                 "options": [
                     "page": page,
-                    "limit": limit,
-                    "sort": ["date_utc": "desc"],
+                    "limit": min(limit, 20),
+                    "sort": [
+                        "date_utc": "desc",
+                    ],
+                    "select": [
+                        "name",
+                        "date_utc",
+                        "details",
+                        "success",
+                        "links.patch.small",
+                        "links.article",
+                        "links.wikipedia",
+                    ],
                 ],
             ]
-            return try? JSONSerialization.data(withJSONObject: parameters)
+            return try? JSONSerialization.data(withJSONObject: query)
+
+        case .rockets:
+            return nil
         }
     }
 
@@ -59,6 +74,7 @@ enum SpaceXEndpoint {
 
         if let body = body {
             request.httpBody = body
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
 

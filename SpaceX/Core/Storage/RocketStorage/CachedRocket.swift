@@ -41,11 +41,11 @@ final class CachedRocket {
         self.init(
             id: rocket.id,
             name: rocket.name,
-            firstFlight: rocket.first_flight,
-            successRate: rocket.success_rate_pct,
-            height: rocket.height.meters ?? 0,
-            diameter: rocket.diameter.meters ?? 0,
-            mass: rocket.mass.kgs ?? 0
+            firstFlight: rocket.first_flight ?? "",
+            successRate: rocket.success_rate_pct ?? 0,
+            height: rocket.height?.meters ?? 0,
+            diameter: rocket.diameter?.meters ?? 0,
+            mass: rocket.mass?.kg ?? 0
         )
     }
 }
@@ -59,7 +59,7 @@ extension Rocket {
             success_rate_pct: cached.successRate,
             height: Rocket.Dimension(meters: cached.height),
             diameter: Rocket.Dimension(meters: cached.diameter),
-            mass: Rocket.Mass(kgs: cached.mass)
+            mass: Rocket.Mass(kg: cached.mass)
         )
     }
 }

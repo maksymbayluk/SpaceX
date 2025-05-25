@@ -11,8 +11,8 @@ import UIKit
 final class AppDependencies {
     static let shared = AppDependencies()
 
-    private let modelContainer: ModelContainer
-    private let modelContext: ModelContext
+    public let modelContainer: ModelContainer
+    let modelContext: ModelContext
 
     init() {
         do {

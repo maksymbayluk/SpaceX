@@ -8,14 +8,18 @@ import Foundation
 
 final class NetworkClient: NetworkClientProtocol {
     private let session: URLSession
-    private let decoder: JSONDecoder
 
-    init(session: URLSession = .shared, decoder: JSONDecoder = JSONDecoder()) {
+    init(session: URLSession = .shared) {
         self.session = session
-        self.decoder = decoder
     }
 
-    func performRequest<T: Decodable>(_ request: URLRequest) async throws -> T {
+    func performRequest<T: Decodable>(
+        _ request: URLRequest,
+        dateDecodingStrategy: JSONDecoder.DateDecodingStrategy,
+        keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy
+    ) async throws
+        -> T
+    {
         let (data, response) = try await session.data(for: request)
 
         guard
@@ -25,6 +29,15 @@ final class NetworkClient: NetworkClientProtocol {
             throw NetworkError.invalidResponse
         }
 
-        return try decoder.decode(T.self, from: data)
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = dateDecodingStrategy
+        decoder.keyDecodingStrategy = keyDecodingStrategy
+
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            print("Decoding error:", error)
+            throw error
+        }
     }
 }

@@ -20,26 +20,46 @@ final class LoginViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private let loginButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Login", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        button.backgroundColor = .systemBlue
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
 
-    private func setupView() {
-        view.backgroundColor = .white
-        let button = UIButton(type: .system)
-        button.setTitle("Sign in with Google", for: .normal)
-        button.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
-
-        view.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
 
-    @objc private func didTapSignIn() {
+    private func setupView() {
+        view.backgroundColor = .systemBackground
+        title = "Login"
+        navigationController?.navigationBar.prefersLargeTitles = true
+
+        view.addSubview(loginButton)
+
+        NSLayoutConstraint.activate([
+            loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
+            loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
+            loginButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
+            loginButton.heightAnchor.constraint(equalToConstant: 50),
+        ])
+
+        loginButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
+    }
+
+    @objc private func didTapLogin() {
         viewModel.signInWithGoogle()
     }
 }
