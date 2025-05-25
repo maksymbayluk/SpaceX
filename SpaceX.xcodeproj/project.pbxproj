@@ -55,7 +55,7 @@
 		17F662172DE21C41007A7D02 /* Exceptions for "SpaceX" folder in "SpaceX" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				"Preview Content/Info.plist",
 			);
 			target = 17411D112DDF9014001B3772 /* SpaceX */;
 		};
