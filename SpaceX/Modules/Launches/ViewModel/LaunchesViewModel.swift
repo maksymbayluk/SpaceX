@@ -18,7 +18,7 @@ final class LaunchesViewModel: ObservableObject {
     private let networkService: LaunchNetworkServiceProtocol
     private let imageService: ImageService
 
-    private var currentPage = 1
+    var currentPage = 1
     private let limit = 10
     private var hasMorePages = true
 
